@@ -4,44 +4,43 @@
 
 // ── PAGES ────────────────────────────────────────────────────────
 const PAGE_IDS = ['home', 'lab1', 'lab3', 'lab4'];
-
 function goTo(id, triggerEl) {
   // 1. Show correct page
   PAGE_IDS.forEach(p => {
-    document.getElementById('page-' + p).classList.toggle('active', p === id);
+    const page = document.getElementById('page-' + p);
+    if (page) page.classList.toggle('active', p === id);
   });
 
-  // 2. Clear active state from ALL possible nav elements
-  // Remove from Topbar buttons
-  document.querySelectorAll('.tnav').forEach(btn => btn.classList.remove('active'));
-  
-  // Remove from Rail dots
-  document.querySelectorAll('.rdot').forEach(dot => dot.classList.remove('active'));
+  // 2. Clear active state from the actual dock items
+  document.querySelectorAll('.dock-item').forEach(btn => {
+    btn.classList.remove('active');
+  });
 
-  // Remove from Mobile nav
-  document.querySelectorAll('.mnav').forEach(btn => btn.classList.remove('active'));
-
-  // 3. Mark the clicked element (and its pairs) active
+  // 3. Mark the clicked element active
   if (triggerEl) {
     triggerEl.classList.add('active');
-    
-    // Optional: Sync the rail dots if you clicked a top nav button, and vice versa
-    // This ensures if you click "Collatz" at the top, the 3rd dot also lights up.
+  } else {
+    // If navigating via a Home Card, find the dock button that matches the ID
+    document.querySelectorAll('.dock-item').forEach(btn => {
+      const oc = btn.getAttribute('onclick') || '';
+      if (oc.includes("'" + id + "'")) {
+        btn.classList.add('active');
+      }
+    });
   }
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function goToId(id) {
-  // Update this to look for .tnav instead of .nav-btn
+  // Find the dock button that corresponds to the page ID
   let matched = null;
-  document.querySelectorAll('.tnav').forEach(btn => {
+  document.querySelectorAll('.dock-item').forEach(btn => {
     const oc = btn.getAttribute('onclick') || '';
     if (oc.includes("'" + id + "'")) matched = btn;
   });
   goTo(id, matched);
 }
-
 // ── MOBILE MENU ───────────────────────────────────────────────────
 function toggleMobile() {
   const drawer = document.getElementById('mobile-nav'); // Changed from mobile-drawer
