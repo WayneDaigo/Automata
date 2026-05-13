@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Automata Theory – Finals Lab Activities</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- VERTICAL LEFT RAIL -->
+  <aside class="rail">
+    <div class="rail-brand">
+      <div class="rail-glyph">∑</div>
+      <div class="rail-rotated">Automata &amp; Formal Languages</div>
+    </div>
+    <div class="rail-dots">
+      <div class="rdot active" onclick="goTo('home',this)" title="Overview"></div>
+      <div class="rdot" onclick="goTo('lab1',this)" title="Lab 01"></div>
+      <div class="rdot" onclick="goTo('lab3',this)" title="Lab 03"></div>
+      <div class="rdot" onclick="goTo('lab4',this)" title="Lab 04"></div>
+    </div>
+    <div class="rail-bottom">
+      <div class="rail-rotated rail-prof">Prof. L. Diampoc</div>
+    </div>
+  </aside>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <nav class="topnav">
+      <button class="tnav active" onclick="goTo('home',this)">
+        <span class="tnav-num">00</span> Overview
+      </button>
+      <button class="tnav" onclick="goTo('lab1',this)">
+        <span class="tnav-num">01</span> Division &amp; GCD
+      </button>
+      <button class="tnav" onclick="goTo('lab3',this)">
+        <span class="tnav-num">03</span> Collatz
+      </button>
+      <button class="tnav" onclick="goTo('lab4',this)">
+        <span class="tnav-num">04</span> Sequences
+      </button>
+    </nav>
+    <button class="burger" onclick="toggleMobile()">
+      <span></span><span></span>
+    </button>
+  </div>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobile-nav">
+    <button class="mnav active" onclick="goTo('home',this);closeMobile()"><span class="tnav-num">00</span> Overview</button>
+    <button class="mnav" onclick="goTo('lab1',this);closeMobile()"><span class="tnav-num">01</span> Division &amp; GCD/LCM</button>
+    <button class="mnav" onclick="goTo('lab3',this);closeMobile()"><span class="tnav-num">03</span> Collatz Sequence</button>
+    <button class="mnav" onclick="goTo('lab4',this);closeMobile()"><span class="tnav-num">04</span> Recursive Sequences</button>
+  </div>
+
+  <!-- MAIN WRAP -->
+  <div class="wrap">
+    <main class="main">
+
+      <!-- PAGE: HOME -->
+      <section class="page active" id="page-home">
+        <div class="home-hero">
+          <p class="hero-eyebrow">Finals Laboratory · 2026</p>
+          <h1 class="hero-title">Lab<br/><em>Activities</em></h1>
+          <p class="hero-sub">Three compiled laboratory exercises on number theory, recursive sequences, and discrete algorithms.</p>
+        </div>
+
+        <div class="home-grid">
+          <div class="hcard" onclick="goToId('lab1')">
+            <div class="hcard-meta">
+              <span class="hcard-num">01</span>
+              <span class="hcard-week">WK10</span>
+            </div>
+            <h2 class="hcard-title">Division Algorithm &amp; Euclidean</h2>
+            <p class="hcard-desc">Compute quotient and remainder via the Division Algorithm. Find GCD and LCM through the Euclidean Algorithm with a full step-by-step trace.</p>
+            <div class="hcard-footer">
+              <div class="hcard-tags">
+                <span class="htag">Division</span>
+                <span class="htag">GCD</span>
+                <span class="htag">LCM</span>
+              </div>
+              <span class="hcard-go">→</span>
+            </div>
+          </div>
+
+          <div class="hcard" onclick="goToId('lab3')">
+            <div class="hcard-meta">
+              <span class="hcard-num">03</span>
+              <span class="hcard-week">Finals</span>
+            </div>
+            <h2 class="hcard-title">Collatz Sequence</h2>
+            <p class="hcard-desc">Generate the complete Collatz sequence from any positive odd integer using the 3x+1 and divide-by-2 rules until the sequence reaches 1.</p>
+            <div class="hcard-footer">
+              <div class="hcard-tags">
+                <span class="htag">3x+1</span>
+                <span class="htag">Recursion</span>
+              </div>
+              <span class="hcard-go">→</span>
+            </div>
+          </div>
+
+          <div class="hcard hcard-wide" onclick="goToId('lab4')">
+            <div class="hcard-meta">
+              <span class="hcard-num">04</span>
+              <span class="hcard-week">Finals</span>
+            </div>
+            <h2 class="hcard-title">Recursive Sequences</h2>
+            <p class="hcard-desc">Compute Fibonacci, Lucas, and Tribonacci number sequences with configurable term counts and visual number chips.</p>
+            <div class="hcard-footer">
+              <div class="hcard-tags">
+                <span class="htag">Fibonacci</span>
+                <span class="htag">Lucas</span>
+                <span class="htag">Tribonacci</span>
+              </div>
+              <span class="hcard-go">→</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE: LAB 1 -->
+      <section class="page" id="page-lab1">
+        <div class="lab-hero">
+          <span class="lab-eyebrow">Activity 01 · Week 10</span>
+          <h2 class="lab-title">Division Algorithm &amp; GCD/LCM</h2>
+          <p class="lab-desc">Enter two positive integers to compute quotient, remainder, GCD, and LCM.</p>
+        </div>
+
+        <div class="split">
+          <div class="panel">
+            <div class="panel-tag">Activity 1</div>
+            <h3 class="panel-title">Division Algorithm</h3>
+            <div class="theorem">
+              <strong>m = n · q + r</strong><br/>
+              Let m, n ∈ ℤ⁺. There exist unique q, r with 0 ≤ r &lt; n such that m = n·q + r.
+            </div>
+            <div class="frow two">
+              <div class="field">
+                <label>First Integer</label>
+                <input type="number" id="div-a" placeholder="e.g. 21" min="1"/>
+              </div>
+              <div class="field">
+                <label>Second Integer</label>
+                <input type="number" id="div-b" placeholder="e.g. 4" min="1"/>
+              </div>
+            </div>
+            <button class="btn" onclick="runDivision()">Compute</button>
+            <div class="output" id="div-out">
+              <span class="out-label">Output</span>
+              <span class="out-plain">Enter two positive integers and click Compute.</span>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-tag">Activity 2</div>
+            <h3 class="panel-title">Euclidean Algorithm</h3>
+            <div class="theorem">
+              <strong>LCM(m,n) = (m · n) / GCD(m,n)</strong><br/>
+              Repeatedly apply Division until remainder = 0. Last non-zero remainder is GCD.
+            </div>
+            <div class="frow two">
+              <div class="field">
+                <label>First Integer</label>
+                <input type="number" id="gcd-a" placeholder="e.g. 13" min="1"/>
+              </div>
+              <div class="field">
+                <label>Second Integer</label>
+                <input type="number" id="gcd-b" placeholder="e.g. 8" min="1"/>
+              </div>
+            </div>
+            <button class="btn" onclick="runGCD()">Compute</button>
+            <div class="output" id="gcd-out">
+              <span class="out-label">Output</span>
+              <span class="out-plain">Enter two positive integers and click Compute.</span>
+            </div>
+            <div id="gcd-steps" style="display:none;margin-top:20px;">
+              <div class="steps-label">Step-by-step trace</div>
+              <div class="step-list" id="gcd-step-list"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE: LAB 3 -->
+      <section class="page" id="page-lab3">
+        <div class="lab-hero">
+          <span class="lab-eyebrow">Activity 03 · Finals</span>
+          <h2 class="lab-title">Collatz Sequence</h2>
+          <p class="lab-desc">Enter a positive odd integer to generate its full Collatz sequence.</p>
+        </div>
+
+        <div class="panel panel-solo">
+          <div class="panel-tag">Collatz Generator</div>
+          <div class="theorem">
+            <strong>If odd → 3x + 1 &nbsp;&nbsp; If even → x ÷ 2</strong><br/>
+            Sequence terminates at 1. Initial value must be a <strong>positive odd integer.</strong>
+          </div>
+          <div class="frow one">
+            <div class="field">
+              <label>Initial Value (positive odd integer)</label>
+              <input type="number" id="col-n" placeholder="e.g. 13" min="1"/>
+            </div>
+            <button class="btn btn-sage" onclick="runCollatz()">Generate</button>
+          </div>
+          <div class="output" id="col-out">
+            <span class="out-label">Output</span>
+            <span class="out-plain">Enter a positive odd integer and click Generate.</span>
+          </div>
+          <div id="col-chain-wrap" style="display:none;margin-top:24px;">
+            <div class="chain-legend">
+              <span><i class="ldot ldot-odd"></i>Odd</span>
+              <span><i class="ldot ldot-even"></i>Even</span>
+              <span><i class="ldot ldot-end"></i>End</span>
+            </div>
+            <div class="collatz-chain" id="col-chain"></div>
+            <p class="col-stats" id="col-stats"></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE: LAB 4 -->
+      <section class="page" id="page-lab4">
+        <div class="lab-hero">
+          <span class="lab-eyebrow">Activity 04 · Finals</span>
+          <h2 class="lab-title">Recursive Sequences</h2>
+          <p class="lab-desc">Select a sequence type and enter the number of terms.</p>
+        </div>
+
+        <div class="panel panel-solo">
+          <div class="tabs">
+            <button class="tab active" onclick="switchTab('fib',this)">Fibonacci</button>
+            <button class="tab" onclick="switchTab('lucas',this)">Lucas</button>
+            <button class="tab" onclick="switchTab('trib',this)">Tribonacci</button>
+          </div>
+
+          <div class="tab-pane active" id="tab-fib">
+            <div class="theorem">
+              <strong>F(0)=0, F(1)=1, F(n) = F(n−1) + F(n−2)</strong><br/>
+              Each term is the sum of the two preceding ones. Valid: terms &gt; 2.
+            </div>
+            <div class="frow one">
+              <div class="field">
+                <label>Number of Terms (&gt; 2)</label>
+                <input type="number" id="fib-n" placeholder="e.g. 8" min="3"/>
+              </div>
+              <button class="btn" onclick="runSeq('fib')">Compute</button>
+            </div>
+            <div class="output" id="fib-out"><span class="out-label">Output</span><span class="out-plain">Enter terms and click Compute.</span></div>
+            <div id="fib-chips"></div>
+          </div>
+
+          <div class="tab-pane" id="tab-lucas">
+            <div class="theorem">
+              <strong>L(0)=2, L(1)=1, L(n) = L(n−1) + L(n−2)</strong><br/>
+              Fibonacci-like with different seeds. Valid: terms &gt; 2.
+            </div>
+            <div class="frow one">
+              <div class="field">
+                <label>Number of Terms (&gt; 2)</label>
+                <input type="number" id="lucas-n" placeholder="e.g. 8" min="3"/>
+              </div>
+              <button class="btn" onclick="runSeq('lucas')">Compute</button>
+            </div>
+            <div class="output" id="lucas-out"><span class="out-label">Output</span><span class="out-plain">Enter terms and click Compute.</span></div>
+            <div id="lucas-chips"></div>
+          </div>
+
+          <div class="tab-pane" id="tab-trib">
+            <div class="theorem">
+              <strong>T(0)=0, T(1)=0, T(2)=1, T(n) = T(n−1)+T(n−2)+T(n−3)</strong><br/>
+              Sum of three preceding terms. Valid: terms &gt; 3.
+            </div>
+            <div class="frow one">
+              <div class="field">
+                <label>Number of Terms (&gt; 3)</label>
+                <input type="number" id="trib-n" placeholder="e.g. 10" min="4"/>
+              </div>
+              <button class="btn" onclick="runSeq('trib')">Compute</button>
+            </div>
+            <div class="output" id="trib-out"><span class="out-label">Output</span><span class="out-plain">Enter terms and click Compute.</span></div>
+            <div id="trib-chips"></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
