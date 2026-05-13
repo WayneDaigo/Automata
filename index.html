@@ -5,60 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Automata Theory – Finals Lab Activities</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=Epilogue:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-  <!-- VERTICAL LEFT RAIL -->
-  <aside class="rail">
-    <div class="rail-brand">
-      <div class="rail-glyph">∑</div>
-      <div class="rail-rotated">Automata &amp; Formal Languages</div>
+  <!-- BRAND MARK (top-left) -->
+  <div class="brand-mark">
+    <div class="brand-glyph">∑</div>
+    <div class="brand-text">
+      <span class="brand-title">Automata &amp; FL</span>
+      <span class="brand-sub">Prof. L. Diampoc · 2026</span>
     </div>
-    <div class="rail-dots">
-      <div class="rdot active" onclick="goTo('home',this)" title="Overview"></div>
-      <div class="rdot" onclick="goTo('lab1',this)" title="Lab 01"></div>
-      <div class="rdot" onclick="goTo('lab3',this)" title="Lab 03"></div>
-      <div class="rdot" onclick="goTo('lab4',this)" title="Lab 04"></div>
-    </div>
-    <div class="rail-bottom">
-      <div class="rail-rotated rail-prof">Prof. L. Diampoc</div>
-    </div>
-  </aside>
+  </div>
 
-  <!-- TOPBAR -->
-  <div class="topbar">
-    <nav class="topnav">
-      <button class="tnav active" onclick="goTo('home',this)">
-        <span class="tnav-num">00</span> Overview
-      </button>
-      <button class="tnav" onclick="goTo('lab1',this)">
-        <span class="tnav-num">01</span> Division &amp; GCD
-      </button>
-      <button class="tnav" onclick="goTo('lab3',this)">
-        <span class="tnav-num">03</span> Collatz
-      </button>
-      <button class="tnav" onclick="goTo('lab4',this)">
-        <span class="tnav-num">04</span> Sequences
-      </button>
-    </nav>
-    <button class="burger" onclick="toggleMobile()">
-      <span></span><span></span>
+  <!-- FLOATING BOTTOM DOCK -->
+  <nav class="dock">
+    <button class="dock-item active" onclick="goTo('home',this)">
+      <span class="dock-num">00</span> Overview
     </button>
-  </div>
-
-  <!-- MOBILE NAV -->
-  <div class="mobile-nav" id="mobile-nav">
-    <button class="mnav active" onclick="goTo('home',this);closeMobile()"><span class="tnav-num">00</span> Overview</button>
-    <button class="mnav" onclick="goTo('lab1',this);closeMobile()"><span class="tnav-num">01</span> Division &amp; GCD/LCM</button>
-    <button class="mnav" onclick="goTo('lab3',this);closeMobile()"><span class="tnav-num">03</span> Collatz Sequence</button>
-    <button class="mnav" onclick="goTo('lab4',this);closeMobile()"><span class="tnav-num">04</span> Recursive Sequences</button>
-  </div>
+    <div class="dock-sep"></div>
+    <button class="dock-item" onclick="goTo('lab1',this)">
+      <span class="dock-num">01</span> Division &amp; GCD
+    </button>
+    <button class="dock-item" onclick="goTo('lab3',this)">
+      <span class="dock-num">03</span> Collatz
+    </button>
+    <button class="dock-item" onclick="goTo('lab4',this)">
+      <span class="dock-num">04</span> Sequences
+    </button>
+  </nav>
 
   <!-- MAIN WRAP -->
   <div class="wrap">
-    <main class="main">
+    <main>
 
       <!-- PAGE: HOME -->
       <section class="page active" id="page-home">
