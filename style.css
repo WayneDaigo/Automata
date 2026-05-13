@@ -1,28 +1,38 @@
 /* ══════════════════════════════════════════════════════
    AUTOMATA & FL — Finals Lab
-   Aesthetic: Soft editorial · cream + sage + terracotta
+   Aesthetic: Soft editorial · deep teal + arctic blue
    Fonts: Cormorant Garamond + Outfit + Space Mono
    ══════════════════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 
 :root {
-  --cream:      #f5f0e8;
-  --cream2:     #ede7d9;
-  --cream3:     #e4dccb;
-  --paper:      #faf8f3;
-  --sage:       #7a9e87;
-  --sage-light: #c4d9cb;
-  --sage-pale:  #eaf1ec;
-  --terra:      #b86a4a;
-  --terra-pale: #f5ece7;
-  --ink:        #1c1a16;
-  --ink-mid:    #4a4540;
-  --ink-muted:  #9a9088;
-  --rule:       #d8d0c0;
-  --green:      #4a8a5a;
-  --red:        #a04040;
-  --blue:       #4a6a9a;
+  /* ── Core palette ── */
+  --arctic:     #B8E3E9;   /* lightest — was cream3 / sage-light */
+  --steel:      #93B1B5;   /* medium — was ink-muted / sage-light */
+  --teal:       #4F7C82;   /* mid-dark — primary accent (was sage / terra) */
+  --deep:       #0B2E33;   /* darkest — ink / strong accent */
+
+  /* ── Derived surface tokens ── */
+  --cream:      #e6f6f8;   /* card background */
+  --cream2:     #cce9ed;   /* slightly richer surface */
+  --cream3:     #B8E3E9;   /* border-adjacent surface */
+  --paper:      #f2fbfc;   /* page background */
+
+  /* ── Semantic aliases (keep original names so HTML/JS unchanged) ── */
+  --sage:       #4F7C82;
+  --sage-light: #93B1B5;
+  --sage-pale:  #ddf3f6;
+  --terra:      #0B2E33;   /* accent hover → deep teal */
+  --terra-pale: #cce4e7;
+  --ink:        #0B2E33;
+  --ink-mid:    #2b5a61;
+  --ink-muted:  #93B1B5;
+  --rule:       #b2d8dd;   /* slightly more visible than raw arctic */
+
+  --green:      #4F7C82;
+  --red:        #7a3030;
+  --blue:       #4F7C82;
 
   --serif:  'Cormorant Garamond', Georgia, serif;
   --sans:   'Outfit', sans-serif;
@@ -50,7 +60,7 @@ body {
 .rail {
   width: 56px;
   min-height: 100vh;
-  background: var(--ink);
+  background: var(--deep);
   position: fixed;
   top: 0; left: 0; bottom: 0;
   display: flex;
@@ -65,14 +75,14 @@ body {
   align-items: center;
   padding: 18px 0 24px;
   gap: 12px;
-  border-bottom: 1px solid rgba(255,255,255,.08);
+  border-bottom: 1px solid rgba(184,227,233,.12);
   width: 100%;
 }
 
 .rail-glyph {
   font-family: var(--serif);
   font-size: 22px;
-  color: var(--sage-light);
+  color: var(--arctic);
   line-height: 1;
 }
 
@@ -81,7 +91,7 @@ body {
   font-size: 8px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgba(255,255,255,.25);
+  color: rgba(184,227,233,.28);
   writing-mode: vertical-rl;
   transform: rotate(180deg);
   line-height: 1;
@@ -100,14 +110,14 @@ body {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: rgba(255,255,255,.2);
+  background: rgba(184,227,233,.22);
   cursor: pointer;
   transition: all .2s;
   position: relative;
 }
 
-.rdot:hover { background: var(--sage-light); transform: scale(1.3); }
-.rdot.active { background: var(--sage-light); width: 10px; height: 10px; }
+.rdot:hover { background: var(--arctic); transform: scale(1.3); }
+.rdot.active { background: var(--arctic); width: 10px; height: 10px; }
 
 .rdot::after {
   content: attr(title);
@@ -115,8 +125,8 @@ body {
   left: 20px;
   top: 50%;
   transform: translateY(-50%);
-  background: var(--ink);
-  color: var(--cream);
+  background: var(--deep);
+  color: var(--arctic);
   font-family: var(--mono);
   font-size: 9px;
   letter-spacing: 1px;
@@ -132,13 +142,13 @@ body {
 
 .rail-bottom {
   padding: 20px 0;
-  border-top: 1px solid rgba(255,255,255,.08);
+  border-top: 1px solid rgba(184,227,233,.10);
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-.rail-prof { color: rgba(255,255,255,.18); font-size: 7.5px; }
+.rail-prof { color: rgba(184,227,233,.20); font-size: 7.5px; }
 
 /* ══════════════════════════════
    TOPBAR
@@ -181,7 +191,7 @@ body {
 }
 
 .tnav:hover { background: var(--cream2); color: var(--ink); }
-.tnav.active { background: var(--ink); color: var(--cream); }
+.tnav.active { background: var(--deep); color: var(--arctic); }
 
 .tnav-num {
   font-family: var(--mono);
@@ -248,7 +258,7 @@ body {
 }
 
 .mnav:hover { background: var(--cream2); color: var(--ink); }
-.mnav.active { background: var(--ink); color: var(--cream); }
+.mnav.active { background: var(--deep); color: var(--arctic); }
 
 /* ══════════════════════════════
    WRAP + MAIN
@@ -292,7 +302,7 @@ body {
   font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: var(--sage);
+  color: var(--teal);
   margin-bottom: 14px;
 }
 
@@ -308,7 +318,7 @@ body {
 
 .hero-title em {
   font-style: italic;
-  color: var(--terra);
+  color: var(--teal);
 }
 
 .hero-sub {
@@ -340,8 +350,8 @@ body {
 }
 
 .hcard:hover {
-  border-color: var(--terra);
-  box-shadow: 4px 4px 0 var(--terra-pale);
+  border-color: var(--teal);
+  box-shadow: 4px 4px 0 var(--cream2);
   transform: translate(-2px, -2px);
 }
 
@@ -416,7 +426,7 @@ body {
   font-family: var(--serif);
 }
 
-.hcard:hover .hcard-go { color: var(--terra); }
+.hcard:hover .hcard-go { color: var(--teal); }
 
 /* ══════════════════════════════
    LAB HERO
@@ -432,7 +442,7 @@ body {
   font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: var(--sage);
+  color: var(--teal);
   display: block;
   margin-bottom: 10px;
 }
@@ -492,7 +502,7 @@ body {
 /* ── THEOREM ── */
 .theorem {
   background: var(--sage-pale);
-  border-left: 2px solid var(--sage);
+  border-left: 2px solid var(--teal);
   padding: 12px 15px;
   margin-bottom: 20px;
   font-family: var(--mono);
@@ -542,16 +552,16 @@ body {
 .field input::placeholder { color: var(--ink-muted); }
 
 .field input:focus {
-  border-color: var(--sage);
-  box-shadow: 0 0 0 3px rgba(122,158,135,.15);
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(79,124,130,.18);
 }
 
 /* ── BUTTONS ── */
 .btn {
   height: 42px;
   padding: 0 24px;
-  background: var(--ink);
-  color: var(--cream);
+  background: var(--deep);
+  color: var(--arctic);
   border: none;
   border-radius: var(--r);
   font-family: var(--sans);
@@ -564,13 +574,13 @@ body {
 }
 
 .btn:hover {
-  background: var(--terra);
+  background: var(--teal);
 }
 
 .btn:active { transform: scale(.97); }
 
-.btn-sage { background: var(--sage); }
-.btn-sage:hover { background: #5a8068; }
+.btn-sage { background: var(--teal); }
+.btn-sage:hover { background: var(--deep); }
 
 /* ── OUTPUT ── */
 .output {
@@ -597,8 +607,8 @@ body {
 }
 
 .out-plain  { display: block; color: var(--ink-muted); }
-.out-step   { display: block; color: var(--blue); }
-.out-result { display: block; color: var(--green); }
+.out-step   { display: block; color: var(--teal); }
+.out-result { display: block; color: var(--deep); }
 .out-err    { display: block; color: var(--red); }
 
 /* ── STEP LIST ── */
@@ -642,7 +652,7 @@ body {
 .step-gcd {
   margin-left: auto;
   font-size: 10.5px;
-  color: var(--green);
+  color: var(--teal);
 }
 
 @keyframes rowIn {
@@ -675,8 +685,8 @@ body {
 
 .tab:hover { color: var(--ink); }
 .tab.active {
-  color: var(--terra);
-  border-bottom-color: var(--terra);
+  color: var(--teal);
+  border-bottom-color: var(--teal);
   font-weight: 500;
 }
 
@@ -702,9 +712,9 @@ body {
   vertical-align: middle;
 }
 
-.ldot-odd  { background: #e8c4a0; border: 1px solid #c8904a; }
-.ldot-even { background: #a0c4b8; border: 1px solid #4a9a82; }
-.ldot-end  { background: var(--ink); }
+.ldot-odd  { background: #B8E3E9; border: 1px solid #93B1B5; }
+.ldot-even { background: #93B1B5; border: 1px solid #4F7C82; }
+.ldot-end  { background: var(--deep); }
 
 .collatz-chain {
   display: flex;
@@ -724,9 +734,9 @@ body {
   color: var(--ink-mid);
 }
 
-.cz-num.odd  { background: #fdf0e4; border-color: #e8c090; color: #8a4a10; }
-.cz-num.even { background: #e8f4ef; border-color: #90c8b0; color: #1a6a50; }
-.cz-num.end  { background: var(--ink); border-color: var(--ink); color: var(--cream); font-weight: 700; }
+.cz-num.odd  { background: #daf2f5; border-color: #93c8d0; color: #1a5560; }
+.cz-num.even { background: #c4dde1; border-color: #6fa4aa; color: #0d3b42; }
+.cz-num.end  { background: var(--deep); border-color: var(--deep); color: var(--arctic); font-weight: 700; }
 
 .cz-arrow { font-size: 11px; color: var(--rule); }
 
@@ -758,16 +768,16 @@ body {
 }
 
 .seq-chip.highlight {
-  background: var(--ink);
-  color: var(--cream);
-  border-color: var(--ink);
+  background: var(--deep);
+  color: var(--arctic);
+  border-color: var(--deep);
   font-weight: 700;
 }
 
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: var(--arctic); border-radius: 4px; }
 
 /* ══════════════════════════════
    RESPONSIVE
