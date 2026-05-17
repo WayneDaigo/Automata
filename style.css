@@ -28,8 +28,14 @@
   --ink-muted:  #6a9ca2;
   --rule:       #b2d8dd;
 
-  --green:  #4F7C82;
-  --red:    #7a3030;
+  --green:      #2e7d52;
+  --green-pale: #d4f0e2;
+  --green-ring: rgba(46,125,82,.2);
+
+  --red:        #7a3030;
+  --red-pale:   #fde8e8;
+  --red-ring:   rgba(122,48,48,.2);
+
   --blue:   #4F7C82;
 
   --serif:  'Fraunces', Georgia, serif;
@@ -76,7 +82,7 @@ body {
   gap: 32px;
 }
 
-/* ── BRAND MARK (UPDATED) ── */
+/* ── BRAND MARK ── */
 .brand-mark {
   display: flex;
   align-items: center;
@@ -115,7 +121,7 @@ body {
   text-transform: uppercase;
 }
 
-/* ── RESTRUCTURED TOP DOCK ── */
+/* ── DOCK ── */
 .dock {
   background: rgba(11, 46, 51, 0.95);
   border-radius: 100px;
@@ -180,7 +186,6 @@ body {
   padding: 0 56px 80px;
 }
 
-/* ── PAGES ── */
 .page { display: none; }
 .page.active {
   display: block;
@@ -440,7 +445,7 @@ body {
   font-size: 14px;
   color: var(--ink);
   outline: none;
-  transition: border-color .15s, box-shadow .15s;
+  transition: border-color .18s, box-shadow .18s, background .18s;
 }
 
 .field input::placeholder { color: var(--ink-muted); }
@@ -448,6 +453,33 @@ body {
 .field input:focus {
   border-color: var(--teal);
   box-shadow: 0 0 0 3px rgba(79,124,130,.18);
+}
+
+/* ── INPUT VALIDATION STATES ── */
+
+/* Valid — green border + ring */
+.field input.input-valid {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px var(--green-ring);
+  background: var(--green-pale);
+}
+
+/* Invalid — red border + ring */
+.field input.input-invalid {
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px var(--red-ring);
+  background: var(--red-pale);
+}
+
+/* Disabled — gray background, muted border */
+.field input.input-disabled,
+.field input:disabled {
+  background: #d8e8ea;
+  border-color: #a4c4c8;
+  color: var(--ink-muted);
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.7;
 }
 
 /* ── BUTTONS ── */
@@ -467,11 +499,21 @@ body {
   white-space: nowrap;
 }
 
-.btn:hover { background: var(--teal); }
-.btn:active { transform: scale(.97); }
+.btn:hover:not(:disabled):not(.btn-disabled) { background: var(--teal); }
+.btn:active:not(:disabled):not(.btn-disabled) { transform: scale(.97); }
 
 .btn-sage { background: var(--teal); }
-.btn-sage:hover { background: var(--deep); }
+.btn-sage:hover:not(:disabled):not(.btn-disabled) { background: var(--deep); }
+
+/* Disabled button state */
+.btn:disabled,
+.btn.btn-disabled {
+  background: #a4c4c8;
+  color: rgba(255,255,255,0.5);
+  cursor: not-allowed;
+  opacity: 0.65;
+  transform: none !important;
+}
 
 /* ── OUTPUT ── */
 .output {
@@ -479,11 +521,10 @@ body {
   background: var(--paper);
   border: 1px solid var(--rule);
   border-radius: var(--r);
-  padding: 16px 18px;
+  padding: 14px 18px;
   font-family: var(--mono);
   font-size: 12.5px;
-  line-height: 2.1;
-  min-height: 90px;
+  line-height: 1.7;
   white-space: pre-wrap;
   word-break: break-word;
 }
@@ -494,7 +535,7 @@ body {
   letter-spacing: 2.5px;
   text-transform: uppercase;
   color: var(--ink-muted);
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .out-plain  { display: block; color: var(--ink-muted); }
