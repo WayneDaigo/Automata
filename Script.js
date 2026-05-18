@@ -443,19 +443,8 @@ function runSeq(type) {
 
 // ══════════════════════════════════════════════════════════════════
 // ACTIVITY 5 — PALINDROME CHECKER
-//
-// Rules:
-//   • Any character is allowed — letters, numbers, symbols, spaces
-//   • UX restrictions: no empty, no leading space,
-//     no trailing space, no consecutive double spaces
-//   • Length is counted character by character
-//   • Palindrome check uses charAt(i) vs charAt(length-1-i),
-//     case-sensitive — spaces count as characters
 // ══════════════════════════════════════════════════════════════════
 
-// Keydown guard — UX spacing rules only.
-// Allows ALL printable characters (letters, digits, symbols).
-// Blocks: leading space, consecutive double space.
 function palBlockInvalidKey(e) {
   const nav = ['Backspace','Delete','ArrowLeft','ArrowRight',
                'ArrowUp','ArrowDown','Home','End','Tab','Enter'];
@@ -464,7 +453,6 @@ function palBlockInvalidKey(e) {
 
   const input = document.getElementById('pal-input');
 
-  // No leading space
   if (e.key === ' ' && input.value.length === 0) {
     e.preventDefault();
     palShowHint('err', 'Cannot start with a space.');
@@ -472,7 +460,6 @@ function palBlockInvalidKey(e) {
     return;
   }
 
-  // No consecutive double space
   if (e.key === ' ' && input.value.length > 0) {
     const lastChar = input.value.charAt(input.value.length - 1);
     if (lastChar === ' ') {
@@ -484,7 +471,6 @@ function palBlockInvalidKey(e) {
   }
 }
 
-// ── Hint bar ──────────────────────────────────────────────────────
 function palShowHint(type, msg) {
   const hint = document.getElementById('pal-hint');
   if (!hint) return;
@@ -507,7 +493,6 @@ function palClearHint() {
   hint.textContent = '';
 }
 
-// ── Shake animation ───────────────────────────────────────────────
 function palShakeInput() {
   const el = document.getElementById('pal-input');
   el.classList.remove('pal-shake');
@@ -515,7 +500,6 @@ function palShakeInput() {
   el.classList.add('pal-shake');
 }
 
-// Manual character-by-character length count
 function manualLength(str) {
   let count = 0;
   while (true) {
@@ -526,8 +510,6 @@ function manualLength(str) {
   return count;
 }
 
-// Core palindrome check using charAt comparison, case-sensitive,
-// spaces included. Mirrors: charAt(i) vs charAt(length-1-i)
 function checkPalindrome(str) {
   const length = manualLength(str);
   let isPalindrome = true;
@@ -544,7 +526,6 @@ function checkPalindrome(str) {
   return { isPalindrome, length, pairs };
 }
 
-// Validate before running — UX rules only
 function validatePalInput(val) {
   if (manualLength(val) === 0)
     return { state: 'empty', message: null };
@@ -559,7 +540,6 @@ function validatePalInput(val) {
   return { state: 'valid', message: null };
 }
 
-// ── Init ──────────────────────────────────────────────────────────
 function initPalindrome() {
   const palInput = document.getElementById('pal-input');
   const palBtn   = document.getElementById('pal-btn');
@@ -568,7 +548,6 @@ function initPalindrome() {
   palInput.addEventListener('input', () => {
     const val = palInput.value;
 
-    // Sanitise pasted content: strip leading spaces, collapse double spaces
     let sanitised = val;
     while (sanitised.charAt(0) === ' ') sanitised = sanitised.slice(1);
     let prev = sanitised;
@@ -589,7 +568,8 @@ function initPalindrome() {
     }
 
     const { state, message } = validatePalInput(palInput.value);
-    const len = manualLength(palInput.value);
+    const cleaned = palInput.value.replace(/ /g, '');
+    const len = manualLength(cleaned);
 
     palInput.classList.remove('input-valid', 'input-invalid');
     if (state === 'valid')   palInput.classList.add('input-valid');
@@ -598,7 +578,7 @@ function initPalindrome() {
     setButtonEnabled(palBtn, state === 'valid');
 
     if (state === 'valid') {
-      palShowHint('ok', `✓ Ready — ${len} character${len !== 1 ? 's' : ''} (spaces counted)`);
+      palShowHint('ok', `✓ Ready — ${len} character${len !== 1 ? 's' : ''} (spaces excluded)`);
     } else if (state === 'invalid') {
       palShowHint('err', message);
     } else {
@@ -614,7 +594,6 @@ function initPalindrome() {
   setButtonEnabled(palBtn, false);
 }
 
-// ── Run ───────────────────────────────────────────────────────────
 function runPalindrome() {
   const palInput = document.getElementById('pal-input');
   const visual   = document.getElementById('pal-visual');
@@ -634,12 +613,13 @@ function runPalindrome() {
   palClearHint();
 
   const raw = palInput.value;
-  const { isPalindrome, length, pairs } = checkPalindrome(raw);
+  const cleaned = raw.replace(/ /g, '');
+
+  const { isPalindrome, length, pairs } = checkPalindrome(cleaned);
 
   setOut('pal-out',
     outLabel('Output') +
-    `<span class="out-step">Enter a string: ${raw}</span>\n\n` +
-    `<span class="out-plain">You entered: ${raw}</span>\n` +
+    `<span class="out-step">You entered: ${raw}</span>\n\n` +
     `<span class="out-result">String length : ${length}</span>\n` +
     (isPalindrome
       ? `<span class="out-result">This string is a Palindrome.</span>`
@@ -655,29 +635,41 @@ function runPalindrome() {
     pairMap[pairs[p].j] = { match: pairs[p].match };
   }
 
-  // Forward row
+  // Forward row (show raw including spaces visually)
   let fwdChips = '';
-  for (let i = 0; i < length; i++) {
+  for (let i = 0; i < manualLength(raw); i++) {
     const ch      = raw.charAt(i);
     const isSpace = ch === ' ';
-    const info    = pairMap[i];
-    let   cls     = isSpace ? 'is-space' : '';
-    if (info) cls += (info.match ? ' match' : ' mismatch');
     const display = isSpace ? '·' : ch;
-    fwdChips += `<span class="pal-char ${cls.trim()}" style="animation-delay:${i * 35}ms">${display}</span>`;
+    // map cleaned index for coloring
+    let cleanedIdx = 0, rawCount = 0;
+    for (let k = 0; k < i; k++) { if (raw.charAt(k) !== ' ') cleanedIdx++; }
+    if (isSpace) {
+      fwdChips += `<span class="pal-char is-space" style="animation-delay:${i * 35}ms">${display}</span>`;
+    } else {
+      const info = pairMap[cleanedIdx];
+      let cls = info ? (info.match ? 'match' : 'mismatch') : '';
+      fwdChips += `<span class="pal-char ${cls}" style="animation-delay:${i * 35}ms">${display}</span>`;
+    }
   }
 
-  // Reversed row — built manually without .reverse()
+  // Reversed row (reversed raw, spaces shown as ·)
   let revChips = '';
-  for (let i = length - 1; i >= 0; i--) {
+  const rawLen = manualLength(raw);
+  for (let i = rawLen - 1; i >= 0; i--) {
     const ch      = raw.charAt(i);
     const isSpace = ch === ' ';
-    const info    = pairMap[i];
-    let   cls     = isSpace ? 'is-space' : '';
-    if (info) cls += (info.match ? ' match' : ' mismatch');
     const display = isSpace ? '·' : ch;
-    const delay   = (length - 1 - i + length) * 35;
-    revChips += `<span class="pal-char ${cls.trim()}" style="animation-delay:${delay}ms">${display}</span>`;
+    let cleanedIdx = 0;
+    for (let k = 0; k < i; k++) { if (raw.charAt(k) !== ' ') cleanedIdx++; }
+    const delay = (rawLen - 1 - i + rawLen) * 35;
+    if (isSpace) {
+      revChips += `<span class="pal-char is-space" style="animation-delay:${delay}ms">${display}</span>`;
+    } else {
+      const info = pairMap[cleanedIdx];
+      let cls = info ? (info.match ? 'match' : 'mismatch') : '';
+      revChips += `<span class="pal-char ${cls}" style="animation-delay:${delay}ms">${display}</span>`;
+    }
   }
 
   document.getElementById('pal-mirror').innerHTML =
@@ -695,7 +687,7 @@ function runPalindrome() {
     `<span class="pal-badge ${badgeClass}">
        <span class="pal-badge-dot"></span>${badgeText}
      </span>
-     <span class="pal-length-note">String length: ${length} (spaces counted) &nbsp;·&nbsp; Pairs compared: ${pairs.length}</span>`;
+     <span class="pal-length-note">String length: ${length} (spaces excluded) &nbsp;·&nbsp; Pairs compared: ${pairs.length}</span>`;
 }
 
 // ── ENTER key handler ─────────────────────────────────────────────
